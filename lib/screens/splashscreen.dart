@@ -35,7 +35,7 @@ class SplashScreen extends StatelessWidget {
               ),
             ),
 
-            verticalSpace(10),
+            verticalSpace(15),
 
             SizedBox(
               height: 100,
@@ -68,7 +68,7 @@ class SplashScreen extends StatelessWidget {
               ),
             ),
 
-            verticalSpace(10),
+            verticalSpace(15),
 
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 20),
@@ -84,6 +84,53 @@ class SplashScreen extends StatelessWidget {
                     'Smart bot guides you, personalizing lessons and tracking progress',
                     textAlign: TextAlign.center,
                     style: TextStyle(fontWeight: FontWeight.w300, fontSize: 15),
+                  ),
+                ],
+              ),
+            ),
+
+            verticalSpace(30),
+
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 20),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Expanded(
+                    child: MaterialButton(
+                      onPressed: () {},
+                      elevation: 0,
+                      height: 70,
+                      // minWidth: deviceWidth(context) / 1.5,
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(50),
+                      ),
+                      color: Colors.white,
+                      child: Text(
+                        'Start Learning',
+                        style: TextStyle(fontSize: 18),
+                      ),
+                    ),
+                  ),
+
+                  Container(
+                    height: 70,
+                    padding: EdgeInsets.all(8),
+                    decoration: BoxDecoration(
+                      shape: BoxShape.circle,
+                      border: Border.all(width: 0.3, color: Colors.grey),
+                    ),
+                    child: MaterialButton(
+                      onPressed: () {},
+                      elevation: 0,
+                      shape: CircleBorder(),
+                      color: Color.fromRGBO(151, 117, 223, 1),
+                      child: Icon(
+                        Icons.arrow_forward_ios,
+                        color: Colors.white,
+                        size: 15,
+                      ),
+                    ),
                   ),
                 ],
               ),
