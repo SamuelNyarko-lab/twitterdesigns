@@ -1,11 +1,9 @@
-// ignore_for_file: must_be_immutable
-
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:twitterdesigns/utils.dart';
 
 class HomePage extends StatefulWidget {
-  const HomePage({super.key});
+  HomePage({super.key});
 
   @override
   State<HomePage> createState() => _HomePageState();
@@ -114,12 +112,13 @@ class _HomePageState extends State<HomePage> {
                       ),
                     ),
 
-                    verticalSpace(10),
+                    verticalSpace(15),
 
                     SizedBox(
+                      height: 50,
                       child: ListView.builder(
                         scrollDirection: Axis.horizontal,
-                        padding: const EdgeInsets.symmetric(horizontal: 16),
+                        // padding: const EdgeInsets.symmetric(horizontal: 20),
                         itemCount: categories.length,
 
                         itemBuilder: (context, index) {
@@ -129,15 +128,14 @@ class _HomePageState extends State<HomePage> {
                             onTap: () => onCategoryTap(index),
                             child: Container(
                               alignment: Alignment.center,
-                              margin: const EdgeInsets.only(right: 12),
+                              margin: const EdgeInsets.only(right: 8),
                               padding: const EdgeInsets.symmetric(
-                                horizontal: 12,
+                                horizontal: 20,
                                 vertical: 0,
                               ),
                               constraints: BoxConstraints(
                                 // maxWidth: 100,
-                                minWidth: 70,
-                                maxHeight: 50,
+                                //minWidth: 80,
                               ),
                               height: 50,
                               decoration: BoxDecoration(
@@ -195,41 +193,6 @@ class CircleImage extends StatelessWidget {
           width: 40,
           height: 40,
           fit: BoxFit.contain,
-        ),
-      ),
-    );
-  }
-}
-
-class CategoryCard extends StatefulWidget {
-  CategoryCard({super.key, required this.categoryname, required this.index});
-  final String categoryname;
-  final int index;
-  int selectedIndex = 0;
-
-  @override
-  State<CategoryCard> createState() => _CategoryCardState();
-}
-
-class _CategoryCardState extends State<CategoryCard> {
-  @override
-  Widget build(BuildContext context) {
-    return InkWell(
-      onTap: () {
-        setState(() {
-          widget.selectedIndex = widget.index;
-        });
-      },
-      child: Container(
-        constraints: BoxConstraints(maxWidth: 200),
-        child: Text(
-          widget.categoryname,
-          style: TextStyle(
-            color:
-                widget.index == widget.selectedIndex
-                    ? Colors.white
-                    : Colors.black,
-          ),
         ),
       ),
     );
