@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:twitterdesigns/utils.dart';
 
 class HomePage extends StatefulWidget {
-  HomePage({super.key});
+  const HomePage({super.key});
 
   @override
   State<HomePage> createState() => _HomePageState();
@@ -163,6 +163,43 @@ class _HomePageState extends State<HomePage> {
                         },
                       ),
                     ),
+
+                    verticalSpace(30),
+
+                    Wrap(
+                      direction: Axis.horizontal,
+                      alignment: WrapAlignment.center,
+                      runAlignment: WrapAlignment.center,
+                      crossAxisAlignment: WrapCrossAlignment.center,
+                      spacing: 10,
+                      runSpacing: 10,
+                      children: [
+                        ActionCard(
+                          imagePath: 'assets/images/book.png',
+                          actionTitle: 'Reading',
+                          percentageComplete: '50',
+                          onActionTap: () {},
+                        ),
+                        ActionCard(
+                          imagePath: 'assets/images/earphone.png',
+                          actionTitle: 'Listening',
+                          percentageComplete: '40',
+                          onActionTap: () {},
+                        ),
+                        ActionCard(
+                          imagePath: 'assets/images/microphone.png',
+                          actionTitle: 'Speaking',
+                          percentageComplete: '70',
+                          onActionTap: () {},
+                        ),
+                        ActionCard(
+                          imagePath: 'assets/images/message.png',
+                          actionTitle: 'Conversation',
+                          percentageComplete: '80',
+                          onActionTap: () {},
+                        ),
+                      ],
+                    ),
                   ],
                 ),
               ),
@@ -170,6 +207,8 @@ class _HomePageState extends State<HomePage> {
           ],
         ),
       ),
+      floatingActionButton: CustomBottomNavBar(),
+      floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
     );
   }
 }
@@ -181,11 +220,11 @@ class CircleImage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      width: 80,
-      height: 80,
+      width: 50,
+      height: 50,
       decoration: const BoxDecoration(
         shape: BoxShape.circle,
-        color: Colors.white,
+        color: Color.fromRGBO(246, 246, 245, 1),
       ),
       child: Center(
         child: Image.asset(
@@ -193,7 +232,143 @@ class CircleImage extends StatelessWidget {
           width: 40,
           height: 40,
           fit: BoxFit.contain,
+          //color: Colors.transparent,
         ),
+      ),
+    );
+  }
+}
+
+class ActionCard extends StatelessWidget {
+  const ActionCard({
+    super.key,
+    required this.imagePath,
+    required this.actionTitle,
+    required this.percentageComplete,
+    required this.onActionTap,
+  });
+  final String imagePath, actionTitle, percentageComplete;
+  final Function onActionTap;
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      width: (deviceWidth(context) / 2) - 30,
+      height: (deviceWidth(context) / 2) - 30,
+      padding: EdgeInsets.all(15),
+      decoration: BoxDecoration(
+        color: Colors.white,
+        borderRadius: BorderRadius.circular(25),
+      ),
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.start,
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          SizedBox(
+            height: 50,
+            child: Row(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                CircleImage(imagePath: imagePath),
+                Container(
+                  height: 50,
+                  width: 50,
+                  padding: EdgeInsets.zero,
+                  decoration: BoxDecoration(
+                    color: Colors.transparent,
+                    shape: BoxShape.circle,
+                    border: Border.all(
+                      width: 1,
+                      color: Color.fromRGBO(246, 246, 245, 1),
+                    ),
+                  ),
+                  child: Icon(Icons.north_east, size: 18),
+                ),
+              ],
+            ),
+          ),
+
+          Spacer(),
+
+          Text(
+            actionTitle,
+            textAlign: TextAlign.center,
+            style: TextStyle(fontWeight: FontWeight.normal, fontSize: 18),
+          ),
+          verticalSpace(3),
+          Text(
+            '$percentageComplete% completed',
+            textAlign: TextAlign.center,
+            style: TextStyle(fontWeight: FontWeight.w200, fontSize: 14),
+          ),
+        ],
+      ),
+    );
+  }
+}
+
+class CustomBottomNavBar extends StatefulWidget {
+  const CustomBottomNavBar({super.key});
+
+  @override
+  State<CustomBottomNavBar> createState() => _CustomBottomNavBarState();
+}
+
+class _CustomBottomNavBarState extends State<CustomBottomNavBar> {
+  int selectedIndex = 0;
+
+  final List<IconData> icons = [
+    CupertinoIcons.home,
+    CupertinoIcons.calendar,
+    CupertinoIcons.chat_bubble_text,
+    CupertinoIcons.person,
+  ];
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
+      width: 260,
+      height: 70,
+      constraints: BoxConstraints(
+        maxWidth: deviceWidth(context) / 1.4,
+        //minWidth: 80,
+      ),
+      decoration: BoxDecoration(
+        color: Colors.white,
+        borderRadius: BorderRadius.circular(32),
+        boxShadow: [BoxShadow(color: Colors.black12, blurRadius: 10)],
+      ),
+      margin: const EdgeInsets.all(16),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: List.generate(icons.length, (index) {
+          final isSelected = selectedIndex == index;
+          return GestureDetector(
+            onTap: () {
+              setState(() {
+                selectedIndex = index;
+              });
+            },
+            child: Container(
+              padding: const EdgeInsets.all(12),
+              width: 60,
+              height: 60,
+              decoration: BoxDecoration(
+                color:
+                    isSelected
+                        ? Color(0xFF9C6BFF)
+                        : Color.fromRGBO(246, 246, 245, 1),
+                shape: BoxShape.circle,
+              ),
+              child: Icon(
+                icons[index],
+                color: isSelected ? Colors.white : Colors.black87,
+                size: 24,
+              ),
+            ),
+          );
+        }),
       ),
     );
   }

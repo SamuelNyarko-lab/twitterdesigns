@@ -21,7 +21,7 @@ class MyApp extends StatelessWidget {
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
         scaffoldBackgroundColor: Color.fromRGBO(245, 240, 255, 1),
       ),
-      home:  HomePage(),
+      home: SplashScreen(),
     );
   }
 }
